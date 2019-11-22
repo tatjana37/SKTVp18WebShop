@@ -6,15 +6,16 @@
 package controller;
 
 
+import entity.Account;
 import entity.Product;
 import java.io.IOException;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import session.AccountFacade;
 import session.ProductFacade;
 
 /**
@@ -23,11 +24,15 @@ import session.ProductFacade;
  */
 @WebServlet(name = "WebController", urlPatterns = {
     "/showAddProduct",
+    "/showAddAccount",
     "/addProduct",
+    "/addAccount",
     
 })
 public class WebController extends HttpServlet {
     @EJB ProductFacade productFacade;
+    @EJB AccountFacade accountFacade;
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -49,7 +54,6 @@ public class WebController extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/showAddProduct.jsp")
                         .forward(request,response);
                 break;
-            
             case "/addProduct": 
                 String produktTitle = request.getParameter("produktTitle");
                 String categoria = request.getParameter("categoria");
@@ -70,10 +74,28 @@ public class WebController extends HttpServlet {
                 request.getRequestDispatcher("/index.jsp")
                         .forward(request,response);
                         break;
+            case "/showAddAccount":
+                request.getRequestDispatcher("/WEB-INF/showAddAccount.jsp")
+                        .forward(request,response);
+            case "/AddAccount":
+                String name = request.getParameter("name");
+                String lastname = request.getParameter("lastname");
+                String email = request.getParameter("email");
+                String money = request.getParameter("money");
+                    Account account = new Account (
+                       name, lastname, email, new Integer(money)
+                );
+                accountFacade.create(account);
+                request.setAttribute("info", "Покупатель добавлен");
+                request.setAttribute("account", account);
+                request.getRequestDispatcher("/index.jsp").forward(request,response);
+                       break;
+                       
+                
+            
         }
     }
-
-  // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
     /**
 
@@ -145,4 +167,3 @@ public class WebController extends HttpServlet {
 
 
 }
-

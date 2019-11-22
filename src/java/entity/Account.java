@@ -29,8 +29,7 @@ public class Account implements Serializable {
     public Account() {
     }
 
-    public Account(Long id, String name, String lastname, String email, int money) {
-        this.id = id;
+    public Account(String name, String lastname, String email, int money) {
         this.name = name;
         this.lastname = lastname;
         this.email = email;
@@ -41,50 +40,30 @@ public class Account implements Serializable {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getLastname() {
         return lastname;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
     public String getEmail() {
         return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public int getMoney() {
         return money;
     }
 
-    public void setMoney(int money) {
-        this.money = money;
-    }
-
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 89 * hash + Objects.hashCode(this.id);
-        hash = 89 * hash + Objects.hashCode(this.name);
-        hash = 89 * hash + Objects.hashCode(this.lastname);
-        hash = 89 * hash + Objects.hashCode(this.email);
-        hash = 89 * hash + this.money;
+        hash = 13 * hash + Objects.hashCode(this.id);
+        hash = 13 * hash + Objects.hashCode(this.name);
+        hash = 13 * hash + Objects.hashCode(this.lastname);
+        hash = 13 * hash + Objects.hashCode(this.email);
+        hash = 13 * hash + this.money;
         return hash;
     }
 
@@ -122,7 +101,6 @@ public class Account implements Serializable {
     public String toString() {
         return "Account{" + "id=" + id + ", name=" + name + ", lastname=" + lastname + ", email=" + email + ", money=" + money + '}';
     }
-   
 
     
    
